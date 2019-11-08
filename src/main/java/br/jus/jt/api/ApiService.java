@@ -8,8 +8,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import br.jus.jt.dto.InteracaoRequestDto;
+import br.jus.jt.dto.VerificationRequestDto;
+import br.jus.jt.dto.VerificationResponseDto;
 import br.jus.jt.manager.InteracaoManager;
 
 @Path("/service")
@@ -39,6 +42,18 @@ public class ApiService {
 			e.printStackTrace();
 			return Response.serverError().build();
 		}    	
+    }
+    
+    @POST
+    @Path("/webhook")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
+    public Response verification(VerificationRequestDto verificacao) {
+    	if (verificacao != null && verificacao.getVerificationToken() == VERIFICATION_TOKEN) {
+    		VerificationResponseDto response = new VerificationResponseDto(verificacao.getChallenge());
+    		return Response.ok(response).build();
+    	}
+    	return Response.status(Status.BAD_REQUEST).build();
     }
 
 }

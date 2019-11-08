@@ -2,7 +2,7 @@ package br.jus.jt.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class VerificationDto {
+public class VerificationRequestDto {
 	
 	@JsonProperty("verification_token")
 	private String verificationToken;
