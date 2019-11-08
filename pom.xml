@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.jus.jt</groupId>
 	<artifactId>backend-rest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<dependencyManagement>
@@ -77,16 +77,16 @@
 			<!-- Teste -->
 
 			<!-- JasperReports -->
-			<dependency>
-				<groupId>net.sf.jasperreports</groupId>
-				<artifactId>jasperreports</artifactId>
-				<version>6.6.0</version>
-			</dependency>
-			<dependency>
-				<groupId>net.sf.jasperreports</groupId>
-				<artifactId>jasperreports-fonts</artifactId>
-				<version>6.0.0</version>
-			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>net.sf.jasperreports</groupId> -->
+<!-- 				<artifactId>jasperreports</artifactId> -->
+<!-- 				<version>6.6.0</version> -->
+<!-- 			</dependency> -->
+<!-- 			<dependency> -->
+<!-- 				<groupId>net.sf.jasperreports</groupId> -->
+<!-- 				<artifactId>jasperreports-fonts</artifactId> -->
+<!-- 				<version>6.0.0</version> -->
+<!-- 			</dependency> -->
 			<!-- JasperReports -->
 
 			<dependency>
@@ -193,10 +193,10 @@
 			<artifactId>hibernate-core</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.sf.jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>net.sf.jasperreports</groupId> -->
+<!-- 			<artifactId>jasperreports</artifactId> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
@@ -360,29 +360,29 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jasperreports-maven-plugin</artifactId>
-				<version>1.0-beta-2</version>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>compile-reports</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<outputDirectory>target/jasper</outputDirectory>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>net.sf.jasperreports</groupId>
-						<artifactId>jasperreports</artifactId>
-						<version>6.6.0</version>
-					</dependency>
-				</dependencies>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>jasperreports-maven-plugin</artifactId> -->
+<!-- 				<version>1.0-beta-2</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>compile</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>compile-reports</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 				<configuration> -->
+<!-- 					<outputDirectory>target/jasper</outputDirectory> -->
+<!-- 				</configuration> -->
+<!-- 				<dependencies> -->
+<!-- 					<dependency> -->
+<!-- 						<groupId>net.sf.jasperreports</groupId> -->
+<!-- 						<artifactId>jasperreports</artifactId> -->
+<!-- 						<version>6.6.0</version> -->
+<!-- 					</dependency> -->
+<!-- 				</dependencies> -->
+<!-- 			</plugin> -->
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>
@@ -419,13 +419,13 @@
 							<include>backend-rest-ds.xml</include>
 							<targetPath>/WEB-INF</targetPath>
 						</resource>
-						<resource>
-							<directory>target/jasper</directory>
-							<includes>
-								<include>**/*.jasper</include>
-							</includes>
-							<targetPath>/WEB-INF/jasper</targetPath>
-						</resource>
+<!-- 						<resource> -->
+<!-- 							<directory>target/jasper</directory> -->
+<!-- 							<includes> -->
+<!-- 								<include>**/*.jasper</include> -->
+<!-- 							</includes> -->
+<!-- 							<targetPath>/WEB-INF/jasper</targetPath> -->
+<!-- 						</resource> -->
 					</webResources>
 					<archive>
 						<manifestEntries>
