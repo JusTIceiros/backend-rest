@@ -8,7 +8,7 @@
 		use-ccm="true">
 <!-- 		<connection-url>jdbc:oracle:thin:@${hostname_port_db}</connection-url> -->
 <!-- 		<connection-url>jdbc:oracle:thin:@bd-hml.trt5.jus.br:1521:ADMH</connection-url> -->
-		<connection-url>jdbc:postgresql://10.5.15.223:5435/mob</connection-url>
+		<connection-url>jdbc:postgresql://10.5.15.223:5435/jtihom</connection-url>
                
 		<driver>postgresql-9.4.1212.jar</driver>
 		<pool>
@@ -17,8 +17,8 @@
 			<flush-strategy>IdleConnections</flush-strategy>
 		</pool>
 		<security>
-			<user-name>mob</user-name>
-			<password>mob</password>
+			<user-name>jti</user-name>
+			<password>jti</password>
 		</security>
 <!-- 		<validation> -->
 <!-- 			<valid-connection-checker -->
