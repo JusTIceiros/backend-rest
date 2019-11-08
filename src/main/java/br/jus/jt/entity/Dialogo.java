@@ -2,7 +2,7 @@ package br.jus.jt.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+
 
 
 /**
@@ -10,17 +10,17 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="APP_APLICATIVO",schema="esb")
-@NamedQuery(name="AppAplicativo.findAll", query="SELECT a FROM AppAplicativo a")
-public class AppAplicativo implements Serializable {
+@Table(name="dialogo",schema="hack")
+@NamedQuery(name="Dialogo.findAll", query="SELECT d FROM Dialogo d")
+public class Dialogo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_app", unique=true, nullable=false, precision=22)
-	private long idApp;
+	@Column(name="id", unique=true, nullable=false)
+	private long id;
 
-	@Column(name="NOME_APP", nullable=false, length=100)
-	private String nomeApp;
+	@Column(name="termos", nullable=false)
+	private String termos;
 
 //	//bi-directional many-to-one association to AppAplicDevice
 //	@OneToMany(mappedBy="appAplicativo")
@@ -34,28 +34,28 @@ public class AppAplicativo implements Serializable {
 //	@OneToMany(mappedBy="appAplicativo")
 //	private List<AppUsuarioPerfil> appUsuarioPerfils;
 
-	public AppAplicativo() {
+	public Dialogo() {
 	}	
 
-	public AppAplicativo(long idApp) {
+	public Dialogo(long id) {
 		super();
-		this.idApp = idApp;
+		this.id = id;
 	}
 
-	public long getIdApp() {
-		return this.idApp;
+	public long getId() {
+		return this.id;
 	}
 
-	public void setIdApp(long idApp) {
-		this.idApp = idApp;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public String getNomeApp() {
-		return this.nomeApp;
+	public String getTermos() {
+		return this.termos;
 	}
 
-	public void setNomeApp(String nomeApp) {
-		this.nomeApp = nomeApp;
+	public void setTermos(String termos) {
+		this.termos = termos;
 	}
 
 //	public List<AppAplicDevice> getAppAplicDevices() {

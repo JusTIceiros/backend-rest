@@ -2,14 +2,14 @@ package br.jus.jt.manager;
 
 import javax.inject.Inject;
 
-import br.jus.jt.dao.AppAplicativoDao;
+import br.jus.jt.dao.DialogoDao;
 import br.jus.jt.dto.InteracaoRequestDto;
 import br.jus.jt.dto.InteracaoResponseDto;
 
 public class InteracaoManager {
 	
 	@Inject
-	private AppAplicativoDao aplicativoDao;
+	private DialogoDao dialogoDao;
 	
 	public InteracaoResponseDto processarInteracao(InteracaoRequestDto requisicaoUsuario) {
 		
@@ -18,9 +18,9 @@ public class InteracaoManager {
 		result.setIdAtendimento(requisicaoUsuario.getIdAtendimento());
 		
 		// inicia o trabalho sujo...
-		Long teste = aplicativoDao.buscarTotalAplicativos();
+		String resultStr = dialogoDao.callMessage(requisicaoUsuario.getEntradaUsuario());
 		
-		result.setResultado("Tudo ok até agora... resultado banco de dados: "+teste);
+		result.setResultado("Tudo ok até agora... resultado banco de dados: " + resultStr);
 		
 		// fim trabalho sujo
 		
