@@ -1,5 +1,8 @@
 package br.jus.jt.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PayloadDto {
 	
 	private String type;

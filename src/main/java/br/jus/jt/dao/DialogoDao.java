@@ -2,7 +2,6 @@ package br.jus.jt.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import br.jus.jt.entity.Dialogo;
 
