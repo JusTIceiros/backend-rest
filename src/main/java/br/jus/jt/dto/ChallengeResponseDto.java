@@ -1,10 +1,10 @@
 package br.jus.jt.dto;
 
-public class VerificationResponseDto {
+public class ChallengeResponseDto {
 	
 	private String challenge;
 	
-	public VerificationResponseDto(String challenge) {
+	public ChallengeResponseDto(String challenge) {
 		super();
 		this.challenge = challenge;
 	}
