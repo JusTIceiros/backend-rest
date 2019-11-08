@@ -52,6 +52,7 @@
 	<!-- </persistence-unit> -->
 
 
+
 	<persistence-unit name="backendUnit"
 		transaction-type="RESOURCE_LOCAL">
 
