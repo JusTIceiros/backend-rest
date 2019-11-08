@@ -11,8 +11,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import br.jus.jt.dto.InteracaoRequestDto;
-import br.jus.jt.dto.VerificationRequestDto;
-import br.jus.jt.dto.VerificationResponseDto;
+import br.jus.jt.dto.MessageDto;
+import br.jus.jt.dto.PayloadDto;
+import br.jus.jt.dto.ChallengeResponseDto;
 import br.jus.jt.manager.InteracaoManager;
 
 @Path("/service")
@@ -48,12 +49,34 @@ public class ApiService {
     @Path("/webhook")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
-    public Response verification(VerificationRequestDto verificacao) {
-    	if (verificacao != null && VERIFICATION_TOKEN.equals(verificacao.getVerificationToken())) {
-    		VerificationResponseDto response = new VerificationResponseDto(verificacao.getChallenge());
-    		return Response.ok(response).build();
+    public Response verification(MessageDto message) {
+    	System.out.println("## request ##");
+    	if (message != null && VERIFICATION_TOKEN.equals(message.getVerificationToken())) {
+    		System.out.println("## challenge ##");
+    		return challengeVerification(message);
+    	} else if (message.getPayload() != null){
+    		System.out.println("## payload ##");
+    		String text = message.getPayload().getText();
+    		System.out.println("## text payload: " + text);
+    		return responder(message);
     	}
+    	
     	return Response.status(Status.BAD_REQUEST).build();
     }
+
+	private Response responder(MessageDto message) {
+		MessageDto resposta = new MessageDto();
+		resposta.setRecipient(message.getSender());
+		resposta.setSender(message.getRecipient());
+		PayloadDto payload = new PayloadDto();
+		payload.setText("Resposta do chatbot");
+		resposta.setPayload(payload );
+		return Response.ok(resposta).build();
+	}
+
+	private Response challengeVerification(MessageDto verificacao) {
+		ChallengeResponseDto response = new ChallengeResponseDto(verificacao.getChallenge());
+		return Response.ok(response).build();
+	}
 
 }
