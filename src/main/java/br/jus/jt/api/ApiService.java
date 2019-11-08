@@ -15,6 +15,8 @@ import br.jus.jt.manager.InteracaoManager;
 @Path("/service")
 public class ApiService {
 	
+	public final static String VERIFICATION_TOKEN = "78326795-dc82-46ad-894a-f8d1bcd0731e";
+	
 	@Inject
 	private InteracaoManager interacaoMgr;
 	
