@@ -458,13 +458,6 @@
 									<include>jboss-web.xml</include>
 									<targetPath>/WEB-INF</targetPath>
 								</resource>
-								<resource>
-									<directory>target/jasper</directory>
-									<includes>
-										<include>**/*.jasper</include>
-									</includes>
-									<targetPath>/WEB-INF/jasper</targetPath>
-								</resource>
 							</webResources>
 							<packagingExcludes>
 								WEB-INF/*-ds.xml,
