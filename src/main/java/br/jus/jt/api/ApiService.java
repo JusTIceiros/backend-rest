@@ -28,6 +28,7 @@ public class ApiService {
     @POST
     @Path("/interagir")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     public Response interagir(InteracaoRequestDto interacaoRequestDto) {  
     	
 		try {
