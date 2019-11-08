@@ -18,7 +18,7 @@ import br.jus.jt.manager.InteracaoManager;
 @Path("/service")
 public class ApiService {
 	
-	public final static String VERIFICATION_TOKEN = "78326795-dc82-46ad-894a-f8d1bcd0731e";
+	public final static String VERIFICATION_TOKEN = "78326795-dc82-46ad-894a-f8d1bcd0";
 	
 	@Inject
 	private InteracaoManager interacaoMgr;
@@ -49,7 +49,7 @@ public class ApiService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
     public Response verification(VerificationRequestDto verificacao) {
-    	if (verificacao != null && verificacao.getVerificationToken() == VERIFICATION_TOKEN) {
+    	if (verificacao != null && VERIFICATION_TOKEN.equals(verificacao.getVerificationToken())) {
     		VerificationResponseDto response = new VerificationResponseDto(verificacao.getChallenge());
     		return Response.ok(response).build();
     	}
