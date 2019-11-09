@@ -70,7 +70,7 @@ public class ApiService {
 		return Response.ok().build();
 	}
 
-	private void enviarMensagem(InteracaoResponseDto resposta, String to) {
+	public void enviarMensagem(InteracaoResponseDto resposta, String to) {
 		String token = T_AUTH_TOKEN1+T_AUTH_TOKEN2;
 		Twilio.init(TWILIO_ACCOUNT_SID, token);
         Message.creator(
@@ -92,5 +92,19 @@ public class ApiService {
 			return Response.serverError().build();
 		}    	
     }
+	
+	@POST
+	@Path("/enviarPush")
+	@Consumes(MediaType.TEXT_PLAIN + "; charset=utf-8")
+	@Produces(MediaType.APPLICATION_JSON + "; charset=utf-8")
+	public Response enviarPush(String mensagemPush) {
+
+		try {
+			return Response.ok(interacaoMgr.enviarPush(mensagemPush)).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.serverError().build();
+		}
+	}
 
 }

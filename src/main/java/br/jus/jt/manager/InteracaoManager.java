@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.core.UriBuilder;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -16,7 +17,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.jus.jt.api.ApiService;
 import br.jus.jt.client.AviInterface;
+import br.jus.jt.dto.BuscaContatosDto;
 import br.jus.jt.dto.ConsultaGenericaHackLocalidadesMapsResponse;
 import br.jus.jt.dto.ConsultaGenericaHackResponse;
 import br.jus.jt.dto.ConsultaGenericaParametroDto;
@@ -35,6 +38,7 @@ public class InteracaoManager {
 	private AviInterface proxy = target.proxy(AviInterface.class);
 	private final String M_API_KEY1 = "AIzaSyAwXgvxWrgfpq";
 	private final String M_API_KEY2 = "DSXL0_iTarEY18N09y1RM";
+	@Inject ApiService apiService;
 	 
 	
 	public InteracaoResponseDto processarInteracao(InteracaoRequestDto requisicaoUsuario) {
@@ -138,6 +142,35 @@ public class InteracaoManager {
 		//return "<p><img border=\\\"0\\\" src=\\\""+resultStr+"\\\" alt=\\\"Pontos de denúncia feitos ao MP BA.\\\"></p>";
 		return resultStr;
 		
+	}
+
+	public String enviarPush(String mensagemPush) {
+		ConsultaGenericaParametroDto paramDto = new ConsultaGenericaParametroDto();		
+		paramDto.setJsonStr("{}");
+		
+		ConsultaGenericaRequestDto requestDto = new ConsultaGenericaRequestDto();
+		requestDto.setIdConsulta("hackBuscaContatos");
+		requestDto.setParametros(paramDto);		
+				
+		// POST
+		ArrayList<BuscaContatosDto> consultaResponse = proxy.fazConsultaGenericaBuscaContatos(requestDto);
+		
+		String to = "whatsapp:+14155238886";
+		
+		for (BuscaContatosDto contato : consultaResponse) {
+			
+			try {
+				InteracaoResponseDto resposta = new InteracaoResponseDto();
+				resposta.setIdAtendimento(contato.getContato());
+				resposta.setResultado(mensagemPush);
+				this.apiService.enviarMensagem(resposta, to);
+			} catch (Exception e) {				
+				e.printStackTrace();				
+			}
+			
+		}
+		
+		return "Push enviado com sucesso!";
 	}
 
 }
