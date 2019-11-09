@@ -3,7 +3,7 @@ package br.jus.jt.dto;
 public class InteracaoResponseDto {
 	
 	private String resultado;
-	private int idAtendimento;
+	private String idAtendimento;
 
 	public String getResultado() {
 		return resultado;
@@ -13,12 +13,12 @@ public class InteracaoResponseDto {
 		this.resultado = dadosEntrada;
 	}
 
-	public int getIdAtendimento() {
+	public String getIdAtendimento() {
 		return idAtendimento;
 	}
 
-	public void setIdAtendimento(int idAtendimento) {
-		this.idAtendimento = idAtendimento;
+	public void setIdAtendimento(String string) {
+		this.idAtendimento = string;
 	}
 	
 

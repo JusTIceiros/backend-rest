@@ -180,6 +180,12 @@
 
 	<dependencies>
 		<dependency>
+		    <groupId>com.twilio.sdk</groupId>
+		    <artifactId>twilio</artifactId>
+		    <version>7.45.0</version>
+		</dependency>
+			
+		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 		</dependency>

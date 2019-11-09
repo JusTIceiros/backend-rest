@@ -3,7 +3,7 @@ package br.jus.jt.dto;
 public class InteracaoRequestDto {
 	
 	private String entradaUsuario;
-	private int idAtendimento;
+	private String idAtendimento;
 	private String textoDigitado;
 	private String proximaAcao;
 
@@ -23,6 +23,7 @@ public class InteracaoRequestDto {
 		this.proximaAcao = proximaAcao;
 	}
 
+
 	public String getEntradaUsuario() {
 		return entradaUsuario;
 	}
@@ -31,11 +32,11 @@ public class InteracaoRequestDto {
 		this.entradaUsuario = dadosEntrada;
 	}
 
-	public int getIdAtendimento() {
+	public String getIdAtendimento() {
 		return idAtendimento;
 	}
 
-	public void setIdAtendimento(int idAtendimento) {
+	public void setIdAtendimento(String idAtendimento) {
 		this.idAtendimento = idAtendimento;
 	}
 	
