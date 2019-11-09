@@ -94,7 +94,12 @@ public class InteracaoManager {
 					this.estadoAtendimento.put(idAtendimento, retornoDialogo.getProxima_acao());
 					resultStr = retornoDialogo.getTexto();
 				} else {
-					
+					try {
+						this.estadoAtendimento.remove(idAtendimento);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					resultStr = "Desculpe, ocorreu algum problema no meu sistema. Poderia tentar novamente?";
 				}
 				
 			} catch (JsonParseException e) {
