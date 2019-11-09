@@ -21,7 +21,8 @@ import br.jus.jt.manager.InteracaoManager;
 @Path("/service")
 public class ApiService {
 
-	private static final String TWILIO_AUTH_TOKEN = "TWILIO_AUTH_TOKEN";
+	private static final String T_AUTH_TOKEN1 = "fe83f4da75735";	
+	private static final String T_AUTH_TOKEN2 = "eae8bc6e239d3d96d22";
 	public static String TWILIO_ACCOUNT_SID = "AC441a21d8dc6162b143080b01063e973b";
 
 	@Inject
@@ -70,7 +71,7 @@ public class ApiService {
 	}
 
 	private void enviarMensagem(InteracaoResponseDto resposta, String to) {
-		String token = System.getenv(TWILIO_AUTH_TOKEN);
+		String token = T_AUTH_TOKEN1+T_AUTH_TOKEN2;
 		Twilio.init(TWILIO_ACCOUNT_SID, token);
         Message.creator(
                 new com.twilio.type.PhoneNumber(resposta.getIdAtendimento()),

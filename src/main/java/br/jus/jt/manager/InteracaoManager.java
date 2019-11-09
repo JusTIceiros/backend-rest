@@ -33,6 +33,8 @@ public class InteracaoManager {
 	final String path = "https://esb-hom.trt5.jus.br";
 	private ResteasyWebTarget target = client.target(UriBuilder.fromPath(path));
 	private AviInterface proxy = target.proxy(AviInterface.class);
+	private final String M_API_KEY1 = "AIzaSyAwXgvxWrgfpq";
+	private final String M_API_KEY2 = "DSXL0_iTarEY18N09y1RM";
 	 
 	
 	public InteracaoResponseDto processarInteracao(InteracaoRequestDto requisicaoUsuario) {
@@ -131,9 +133,7 @@ public class InteracaoManager {
 			resultStr += consultaGenericaHackLocalidadesMapsResponse.getLocalidade();
 		}
 		
-		//String mapsApiKey = System.get("MAPS_API");
-		
-		resultStr += "&key="; //maps api key
+		resultStr += "&key="+M_API_KEY1+M_API_KEY2;
 		
 		//return "<p><img border=\\\"0\\\" src=\\\""+resultStr+"\\\" alt=\\\"Pontos de denúncia feitos ao MP BA.\\\"></p>";
 		return resultStr;
