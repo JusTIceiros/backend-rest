@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.jus.jt.client.AviInterface;
+import br.jus.jt.dto.ConsultaGenericaHackLocalidadesMapsResponse;
 import br.jus.jt.dto.ConsultaGenericaHackResponse;
 import br.jus.jt.dto.ConsultaGenericaParametroDto;
 import br.jus.jt.dto.ConsultaGenericaRequestDto;
@@ -45,13 +46,16 @@ public class InteracaoManager {
 		
 		String idAtendimento = String.valueOf(requisicaoUsuario.getIdAtendimento());
 		
-		String termoConsulta = "/start";
+		String proximaAcao = "/start";
+		String textoDigitado = requisicaoUsuario.getEntradaUsuario();
+		requisicaoUsuario.setTextoDigitado(textoDigitado);
 		
 		if (this.estadoAtendimento.containsKey(idAtendimento)) {
-			termoConsulta = this.estadoAtendimento.get(idAtendimento);
+			proximaAcao = this.estadoAtendimento.get(idAtendimento);
 		}
 		
-		requisicaoUsuario.setEntradaUsuario(termoConsulta);
+		requisicaoUsuario.setEntradaUsuario(proximaAcao);
+		requisicaoUsuario.setProximaAcao(proximaAcao);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -107,6 +111,35 @@ public class InteracaoManager {
 		return result;
 		
 	}
+	
+	public String obterMapaDeDenuncias() {
+		
+		ConsultaGenericaParametroDto paramDto = new ConsultaGenericaParametroDto();
+		
+		paramDto.setJsonStr("{}");
+		
+		ConsultaGenericaRequestDto requestDto = new ConsultaGenericaRequestDto();
+		requestDto.setIdConsulta("hackLocalidadesMaps");
+		requestDto.setParametros(paramDto);		
+				
+		// POST
+		ArrayList<ConsultaGenericaHackLocalidadesMapsResponse> consultaResponse = proxy.fazConsultaGenericaHackLocalidadesMapsResponse(requestDto);
+		
+		String resultStr = "https://maps.googleapis.com/maps/api/staticmap?center=sao%20marcos,salvador,bahia,brasil&zoom=12&size=700x700&maptype=roadmap";
+		
+		for (ConsultaGenericaHackLocalidadesMapsResponse consultaGenericaHackLocalidadesMapsResponse : consultaResponse) {
+			resultStr += consultaGenericaHackLocalidadesMapsResponse.getLocalidade();
+		}
+		
+		//String mapsApiKey = System.get("MAPS_API");
+		
+		resultStr += "&key="; //maps api key
+		
+		//return "<p><img border=\\\"0\\\" src=\\\""+resultStr+"\\\" alt=\\\"Pontos de denúncia feitos ao MP BA.\\\"></p>";
+		return resultStr;
+		
+	}
 
 }
 
+ 

@@ -78,5 +78,18 @@ public class ApiService {
 		ChallengeResponseDto response = new ChallengeResponseDto(verificacao.getChallenge());
 		return Response.ok(response).build();
 	}
+	
+	@GET
+    @Path("/obterMapaDeDenuncias")
+    @Produces(MediaType.TEXT_HTML + "; charset=utf-8")
+    public Response obterMapaDeDenuncias() {  
+    	
+		try {
+			return Response.ok(interacaoMgr.obterMapaDeDenuncias()).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.serverError().build();
+		}    	
+    }
 
 }
