@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.UriBuilder;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -11,9 +12,9 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.mail.imap.ResyncData;
 
 import br.jus.jt.client.AviInterface;
 import br.jus.jt.dto.ConsultaGenericaHackResponse;
@@ -23,9 +24,15 @@ import br.jus.jt.dto.InteracaoRequestDto;
 import br.jus.jt.dto.InteracaoResponseDto;
 import br.jus.jt.dto.RetornoDialogoDto;
 
+@ApplicationScoped
 public class InteracaoManager {
 	
 	private HashMap<String, String> estadoAtendimento = new HashMap<String, String>();
+	private ResteasyClient client = new ResteasyClientBuilder().build();
+	final String path = "https://esb-hom.trt5.jus.br";
+	private ResteasyWebTarget target = client.target(UriBuilder.fromPath(path));
+	private AviInterface proxy = target.proxy(AviInterface.class);
+	 
 	
 	public InteracaoResponseDto processarInteracao(InteracaoRequestDto requisicaoUsuario) {
 		
@@ -44,18 +51,25 @@ public class InteracaoManager {
 			termoConsulta = this.estadoAtendimento.get(idAtendimento);
 		}
 		
-		paramDto.setJsonStr(termoConsulta);
+		requisicaoUsuario.setEntradaUsuario(termoConsulta);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		String jsonString = "";
+		
+		try {
+			jsonString = mapper.writeValueAsString(requisicaoUsuario);
+		} catch (JsonProcessingException e1) {
+			e1.printStackTrace();
+			throw new RuntimeException("Erro ao transformar mensagem de entrada do usuário (parse no json de entrada).",e1);
+		}
+		
+		paramDto.setJsonStr(jsonString);
 		
 		ConsultaGenericaRequestDto requestDto = new ConsultaGenericaRequestDto();
 		requestDto.setIdConsulta("hack");
-		requestDto.setParametros(paramDto);
-		
-		final String path = "https://esb-hom.trt5.jus.br";
+		requestDto.setParametros(paramDto);		
 				
-		ResteasyClient client = new ResteasyClientBuilder().build();
-		ResteasyWebTarget target = client.target(UriBuilder.fromPath(path));
-		AviInterface proxy = target.proxy(AviInterface.class);
-		 
 		// POST
 		ArrayList<ConsultaGenericaHackResponse> consultaResponse = proxy.fazConsultaGenerica(requestDto);
 		
@@ -64,13 +78,14 @@ public class InteracaoManager {
 		if (consultaResponse.size()>0) {
 			resultStr = consultaResponse.get(0).getF_call_message();
 			
-			ObjectMapper mapper = new ObjectMapper();
-			
 			try {
-				
-				RetornoDialogoDto retornoDialogo = mapper.readValue(resultStr, RetornoDialogoDto.class);
-				this.estadoAtendimento.put(idAtendimento, retornoDialogo.getProxima_acao());
-				resultStr = retornoDialogo.getTexto();
+				if (resultStr != null) {
+					RetornoDialogoDto retornoDialogo = mapper.readValue(resultStr, RetornoDialogoDto.class);
+					this.estadoAtendimento.put(idAtendimento, retornoDialogo.getProxima_acao());
+					resultStr = retornoDialogo.getTexto();
+				} else {
+					
+				}
 				
 			} catch (JsonParseException e) {
 				e.printStackTrace();
@@ -88,7 +103,6 @@ public class InteracaoManager {
 		result.setResultado(resultStr);
 		
 		// fim trabalho sujo
-		
 		
 		return result;
 		
