@@ -38,7 +38,7 @@ public class ApiService {
     public Response interagir(InteracaoRequestDto interacaoRequestDto) {  
     	
 		try {
-			return Response.accepted(interacaoMgr.processarInteracao(interacaoRequestDto)).build();
+			return Response.ok(interacaoMgr.processarInteracao(interacaoRequestDto)).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.serverError().build();
