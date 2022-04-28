@@ -20,7 +20,7 @@
 			<dependency>
 				<groupId>org.wildfly</groupId>
 				<artifactId>wildfly-parent</artifactId>
-				<version>13.0.0.Final</version>
+				<version>23.0.2.Final</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
